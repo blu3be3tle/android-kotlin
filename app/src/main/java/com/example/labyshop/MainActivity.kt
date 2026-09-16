@@ -66,6 +66,9 @@ fun LabyShopApp() {
     var cartItems by remember {
         mutableStateOf<List<CartItem>>(emptyList())
     }
+
+    val cartItemCount = cartItems.sumOf { it.quantity }
+
     val repository = remember {
         ProductRepository(RetrofitClient.api)
     }
@@ -108,7 +111,7 @@ fun LabyShopApp() {
                             }
                         ) {
                             Text(
-                                text = "Cart",
+                                text = if (cartItemCount > 0) {"Cart ($cartItemCount)"}  else {"Cart"},
                                 fontWeight = FontWeight.Bold
                             )
                         }
